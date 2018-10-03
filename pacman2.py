@@ -3,6 +3,7 @@ import tty, termios
 import sys
 import random
 import math
+import numpy as np
 
 class Player:
 	name="O"
