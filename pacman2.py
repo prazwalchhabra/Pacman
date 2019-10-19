@@ -15,6 +15,7 @@ class Player:
 
 player=Player()
 
+
 class Board:
 	line="********************************"
 	line1="**O ``````````````````````````**"
@@ -649,11 +650,23 @@ class Ghost3(Ghost):
 ghost3=Ghost3()
 
 
+def getch():
+  import sys, tty, termios
+  old_settings = termios.tcgetattr(0)
+  new_settings = old_settings[:]
+  new_settings[3] &= ~termios.ICANON
+  try:
+    termios.tcsetattr(0, termios.TCSANOW, new_settings)
+    ch = sys.stdin.read(1)
+  finally:
+    termios.tcsetattr(0, termios.TCSANOW, old_settings)
+  return ch
+
 while True:
 	os.system('clear')
 	board.print_board() 
 	print (player.name1,"     ","Position: ",player.x,player.y,"    Score: ",player.score,"     Moves:",player.moves)
-	move=input()
+	move=getch()
 	if move=="w" or move=="a" or move=="s" or move=="d":
 		ghost1.move()
 		ghost2.move()
